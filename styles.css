@@ -1,0 +1,16 @@
+body {
+    padding: 20px 10px;
+    box-sizing: border-box;
+}
+
+.container {
+    min-width: 100px;
+    height: auto;
+    padding: 10px 20px;
+    background-color: #ddffff;
+}
+
+h1 {
+    font-size: 22px;
+    text-decoration: underline;
+}
