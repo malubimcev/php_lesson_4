@@ -1,43 +1,36 @@
 <?php
-    $city = "Murmansk,ru";
-    $userKey = "c75ecbe2264d2b9f9e34626b184ba756";//личный код пользователя OpenWeatherMap
-    $request = "http://api.openweathermap.org/data/2.5/weather?q=$city&appid=$userKey";
-    $response = file_get_contents($request);//ответ сервера OpenWeatherMap
-    $celsiusZero = 273.15;//температура 0 град. по Цельсию
-
+    $json = file_get_contents(__DIR__.'/newjson.json');
+    $data = json_decode($json, true);
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>PHP_lesson_4</title>
+        <title>PHP_Lesson_2.1</title>
         <link rel="stylesheet" href="styles.css"/>
     </head>
     <body>
-        <div class="container">
-        <?php
-            if($response){
-                $weather_data = json_decode($response, true);
-            } else {
-                echo "Error";
-                exit;
-            }
-            echo "<h1>Current weather in $city</h1>";
-            foreach ($weather_data as $key => $data) {
-                switch ($key) {
-                    case "weather":
-                        echo "Description: ".$data[0]['description']."<br>";
-                        break;
-                    case "main":
-                        $celsius = $data['temp'] - $celsiusZero;
-                        echo "Temperature: ".$celsius." <sup>o</sup>C<br>";
-                        break;
-                    case "wind":
-                        echo "Wind speed: ".$data['speed']." m/s<br>";
-                        break;
-                }
-            }
-        ?>
-        </div>
+        <h1>PHP_Lesson_2.1</h1>
+        <h2>Чтение данных из файла json</h2>
+        <table>
+            <thead>
+                <tr>
+                    <td>Имя</td>
+                    <td>Фамилия</td>
+                    <td>Адрес</td>
+                    <td>Телефон</td>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($data as $item) { ?>
+                <tr>
+                    <td><?php echo $item['firstName']?></td>
+                    <td><?php echo $item['lastName']?></td>
+                    <td><?php echo $item['address']?></td>
+                    <td><?php echo $item['phoneNumber']?></td>
+                </tr>
+                <?php } ?>
+            </tbody>
+        </table>
     </body>
 </html>
